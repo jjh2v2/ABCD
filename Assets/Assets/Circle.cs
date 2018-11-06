@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Circle : MonoBehaviour {
 
-    public GameObject mCamera;
+    public GameObject mCanvas;
 
     public GameObject HitObj;
     public GameObject HitBg;
@@ -32,6 +32,21 @@ public class Circle : MonoBehaviour {
         CountText.GetComponent<Text>().text = "0";
 
         Rotation(0.0f, 120.0f);
+
+        GameObject _game = new GameObject();
+        _game.AddComponent<RectTransform>();
+        _game.GetComponent<RectTransform>().sizeDelta = new Vector2(1.0f, 1.0f);
+        _game.name = "fx_0";
+        _game.transform.SetParent(mCanvas.transform);
+        _game.transform.localScale = new Vector3(100.0f, 100.0f, 100.0f);
+        _game.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
+        Mesh _mesh = MakeFxMash.MakeMesh();
+        _game.AddComponent<MeshFilter>();
+        _game.GetComponent<MeshFilter>().mesh = _mesh;
+        _game.AddComponent<MeshRenderer>();
+        _game.GetComponent<MeshRenderer>().material.color = Color.green;
+
     }
 	
 	// Update is called once per frame
@@ -45,7 +60,7 @@ public class Circle : MonoBehaviour {
             Image HitBgImg = HitBg.GetComponent<Image>();
             Image HitObjImg = HitObj.GetComponent<Image>();
 
-            float dddd = HitObj.transform.eulerAngles.z;
+            //float dddd = HitObj.transform.eulerAngles.z;
             //Debug.Log("HitObj.transform.eulerAngles.z : " + dddd);
 
             float HitBgImgOverPos = HitBg.transform.eulerAngles.z - (HitBgImg.fillAmount * 360);
@@ -88,7 +103,8 @@ public class Circle : MonoBehaviour {
         HitBg.transform.localRotation *= Quaternion.AngleAxis(180.0f, new Vector3(0.0f, 0.0f, 1.0f));
         mHitCount++;
         CountText.GetComponent<Text>().text = "" + mHitCount;
-        mCamera.GetComponent<ShakeCamera>().shake = 0.09f;
+        mCanvas.GetComponent<ShakeCamera>().shake = 0.09f;
+        //MakeFxMash.MakeFxObject(HitBg);
     }
 
     // 0 ~ 360 -값은 들어가면 중돌 계산이 안된다
