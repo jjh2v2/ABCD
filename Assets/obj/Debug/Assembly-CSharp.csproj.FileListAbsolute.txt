@@ -167,3 +167,5 @@ C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.csproj.CoreCo
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.dll
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.pdb
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml
