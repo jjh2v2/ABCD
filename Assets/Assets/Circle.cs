@@ -22,7 +22,7 @@ public class Circle : MonoBehaviour {
     private bool mTouch = false;
     private ulong mHitCount = 0;
 
-    private Vector3 OrigineRot;
+    private Vector3 PreRot;
 
     void Awake()
     {
@@ -41,7 +41,8 @@ public class Circle : MonoBehaviour {
         patical.GetComponent<ParticleSystem>().Stop();
         //patical.GetComponent<ParticleSystem>().playbackSpeed = 1.30f;
 
-        Rotation(0.0f, 120.0f);
+        float ran = Random.Range(90.0f, 270.0f);
+        Rotation(0.0f, ran);
 
         //GameObject _game = new GameObject();
         //_game.AddComponent<RectTransform>();
@@ -73,7 +74,7 @@ public class Circle : MonoBehaviour {
             //float dddd = HitObj.transform.eulerAngles.z;
             //Debug.Log("HitObj.transform.eulerAngles.z : " + dddd);
 
-            float oZ = (OrigineRot.z);
+            float oZ = (PreRot.z);
             float fZ = (HitObj.transform.localEulerAngles.z);
             //Debug.Log("HitObj.transform.localRotation.z : " + fZ);
             if (Mathf.Abs(fZ - oZ) < 0.1f)
@@ -103,12 +104,29 @@ public class Circle : MonoBehaviour {
                     }
                 }
             }
-            else if (HitBg.transform.eulerAngles.z < HitObjImgOverPos)
+            else if (HitBgImgOverPos < HitObjImgOverPos)
             {
-                HitBgImg.color = OriginClor;
-                if (mTouch)
+                float _eulerAngles = HitBg.transform.eulerAngles.z;
+                float _fillAmount = (HitBg.GetComponent<Image>().fillAmount * 360);
+                float dsfs = _fillAmount - _eulerAngles;
+                if (360.0f - dsfs > HitObj.transform.eulerAngles.z)
                 {
-                    GameOver();
+                    // 충돌
+                    HitBgImg.color = ChaingeColor;
+                    if (mTouch)
+                    {
+                        Opposition();
+                    }
+                }
+                else
+                {
+                    HitBgImg.color = OriginClor;
+                        Debug.Log("1111111 : " + dsfs);
+                    if (mTouch)
+                    {
+                        GameOver();
+                    }
+                        Debug.Log("1111111 : ");
                 }
             }
         }
@@ -117,14 +135,17 @@ public class Circle : MonoBehaviour {
     private void Opposition()
     {
         //HitBg
-        speed *= -1.0f;
+        // 충돌 카운트 처리
         mHitCount++;
         CountText.GetComponent<Text>().text = "" + mHitCount;
-        mCanvas.GetComponent<ShakeCamera>().shake = 0.09f;
-        OrigineRot = HitObj.transform.localEulerAngles;
-        HitBg.transform.localRotation *= Quaternion.AngleAxis(180.0f, new Vector3(0.0f, 0.0f, 1.0f));
-        //MakeFxMash.MakeFxObject(HitBg);
 
+        // 충돌하지 않고 한바퀴 돌았을때 게임종료를 위해서 이전 충돌 위치 저장
+        PreRot = HitObj.transform.localEulerAngles;
+
+        // 배경 흔들기
+        mCanvas.GetComponent<ShakeCamera>().shake = 0.09f;
+
+        // 이펙트 처리
         //Vector3 pos = 부모의 rotation값(쿼터니언) * 자식의 초기 위치값
         Vector3 pos = HitObj.transform.localRotation * hitpos.transform.localPosition;
         pos.z = patical.transform.localPosition.z;
@@ -133,7 +154,13 @@ public class Circle : MonoBehaviour {
         patical.GetComponent<ParticleSystem>().Stop();
         patical.GetComponent<ParticleSystem>().Play();
 
+        // 충돌 배경 위치 선정
+        float ran = Random.Range(90.0f, 270.0f);
+        HitBg.transform.localRotation *= Quaternion.AngleAxis(ran, new Vector3(0.0f, 0.0f, 1.0f));
+
+        // 충돌객체와 충돌배경 난이도 처리
         // 횟수가 중요한거니까 횟수가 올라갈수록 속도를 빠르게
+        speed *= -1.0f;
         if (mHitCount%2 == 0)
         {
             if(speed > 0)
@@ -157,7 +184,7 @@ public class Circle : MonoBehaviour {
             HitObj.transform.localRotation *= Quaternion.AngleAxis(PlayerR, new Vector3(0.0f, 0.0f, 1.0f));
             HitBg.transform.localRotation *= Quaternion.AngleAxis(BackGroundR, new Vector3(0.0f, 0.0f, 1.0f));
 
-            OrigineRot = HitObj.transform.localEulerAngles;
+            PreRot = HitObj.transform.localEulerAngles;
         }
     }
 
