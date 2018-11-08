@@ -110,6 +110,7 @@
     <Compile Include="Assets\Light2D\Examples\Editor\ScriptableObjectCreatorWindow.cs" />
     <Compile Include="Assets\Minimalist Free\Editor\MinimalistStandardMatV2Free.cs" />
     <Compile Include="Assets\Minimalist Free\Editor\SkyMatV2Free.cs" />
+    <Compile Include="Assets\ProtoShape2D\Editor\ProtoShape2DEditor.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Editor\Camera\tk2dCameraAnchorEditor.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Editor\Camera\tk2dCameraEditor.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Editor\Fonts\tk2dFontBuilder.cs" />

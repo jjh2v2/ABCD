@@ -350,6 +350,17 @@
     <Compile Include="Assets\Light2DSunExtension\Demo\Scripts\LightIntensityNormalisation.cs" />
     <Compile Include="Assets\Light2DSunExtension\Demo\Scripts\TilemapObstacleGenerator.cs" />
     <Compile Include="Assets\MakeFxMash.cs" />
+    <Compile Include="Assets\PolygonMesh2D.cs" />
+    <Compile Include="Assets\ProtoShape2D\Demo\DemoGameScripts\PS2DCameraScript.cs" />
+    <Compile Include="Assets\ProtoShape2D\Demo\DemoGameScripts\PS2DPlayerScript.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\LoopArraysAndLists.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\ProtoShape2D.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\PS2DColliderPoint.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\PS2DEnums.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\PS2DPoint.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\PS2DSnap.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\Triangulator.cs" />
+    <Compile Include="Assets\ProtoShape2D\Scripts\Vector2Extension.cs" />
     <Compile Include="Assets\Scripts\Rotater.cs" />
     <Compile Include="Assets\ShakeCamera.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
@@ -435,6 +446,7 @@
     <Compile Include="Assets\UB\EffectBase.cs" />
     <Compile Include="Assets\UB\HighEndMobilePostEffects\Shaders\D2FogsNoiseTexPE.cs" />
     <Compile Include="Assets\UB\HighEndMobilePostEffects\Shaders\D2FogsPE.cs" />
+    <Compile Include="Assets\UIPolygon.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexCollidersCutter.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
@@ -570,6 +582,7 @@
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Illumin\MK_Illumin-DiffuseBumpSpec.shader" />
     <None Include="Assets\Light2D\Resources\Shaders\Light1.shader" />
     <None Include="Assets\Light2D\Resources\Shaders\Light50.shader" />
+    <None Include="Assets\ProtoShape2D\Shaders\TextureAndColors.shader" />
     <None Include="Assets\2DxFX\Resources\2dxfx_AL\_2dxFX_AL_Shiny_Reflect.shader" />
     <None Include="Assets\ErbGameArt\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_PatternAdditive.shader" />
@@ -650,6 +663,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_NoiseAnimated.shader" />
     <None Include="Assets\2DxFX\Resources\2dxfx_AL\_2dxFX_AL_4Gradients.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_FlameAdditive.shader" />
+    <None Include="Assets\ProtoShape2D\Readme.txt" />
     <None Include="Assets\ErbGameArt\PostProcessing\Resources\Shaders\TAA.cginc" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Fire.shader" />
     <None Include="Assets\_MK\MKGlowFree\Shader\Variants_SelectiveMode\Transparent\MK_Transparent-DiffuseBumped.shader" />
