@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Circle : MonoBehaviour {
 
+    public GameObject OverPanel;
     public GameObject hitpos;
     public GameObject patical;
 
@@ -16,33 +17,123 @@ public class Circle : MonoBehaviour {
     public GameObject NewBestScoreText;
     public float speed = 2.0f;
 
+
     public Color ChaingeColor;
     private Color OriginClor;
 
+    private bool mGameStatus = false;
     private bool mTouch = false;
     private ulong mHitCount = 0;
     private ulong mStageCurrentCount = 0;
     private int mBestScore = 0;
     private Vector3 PreRot;
 
+    private const int goodtestNum = 3;
+    private string[] goodtest = new string[goodtestNum] { "Nice", "Good", "Perfect" };
+
     void Awake()
     {
-        if(patical)
+        Init();
+        Application.targetFrameRate = 60;
+        if (patical)
             patical.GetComponent<ParticleSystem>().Stop();
+    }
+
+    void Init()
+    {
+        mGameStatus = false;
+        if (OverPanel)
+        {
+            OverPanel.SetActive(true);
+        }
+    }
+
+    public void GameStart()
+    {
+        if (this.GetComponent<GoogleMobileAdsDemoScript>().mReward)
+        {
+            this.GetComponent<GoogleMobileAdsDemoScript>().mReward = false;
+            StartCoroutine("RewardCoroutineIncreaseTime");
+        }
+        else
+        {
+            StartCoroutine("CoroutineIncreaseTime");
+        }
+    }
+
+    IEnumerator CoroutineIncreaseTime()
+    {
+        OverPanel.SetActive(false);
+        CountText.GetComponent<Text>().text = "3";
+        int iiii = 1;
+        while (iiii < 4)
+        {
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("dsfsdfsdfsdfsd");
+            CountText.GetComponent<Text>().text =""+(3 - iiii);
+            iiii++;
+        }
+        CountText.GetComponent<Text>().text = "0";
+        SetGameStatus(true);
+    }
+
+    IEnumerator RewardCoroutineIncreaseTime()
+    {
+        OverPanel.SetActive(false);
+        CountText.GetComponent<Text>().text = "3";
+        int iiii = 1;
+        while (iiii < 4)
+        {
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("dsfsdfsdfsdfsd");
+            CountText.GetComponent<Text>().text = "" + (3 - iiii);
+            iiii++;
+        }
+        CountText.GetComponent<Text>().text = "0";
+        ulong reward = mHitCount;
+        SetGameStatus(true);
+        mHitCount = reward;
+        CountText.GetComponent<Text>().text = "" + mHitCount;
+    }
+
+    public void SetGameStatus(bool _is)
+    {
+        mGameStatus = _is;
+        if (mGameStatus)
+        {
+            Reset();
+            OverPanel.SetActive(false);
+        }
+        else
+        {
+            OverPanel.SetActive(true);
+        }
+
+        for (int i=0; i< OverPanel.transform.childCount; i++)
+        {
+            OverPanel.transform.GetChild(i).gameObject.SetActive(true);
+            if (OverPanel.transform.GetChild(i).name == "Text")
+                OverPanel.transform.GetChild(i).GetComponent<Text>().text = "" + mHitCount;
+        }
+    }
+
+    public bool GetGameStatus()
+    {
+        return mGameStatus;
     }
 
     // Use this for initialization
     void Start ()
     {
         ////HitObj = this.GetComponentInChildren(GameObject)
-        //Image HitBgImg = HitBg.GetComponent<Image>();
-        //OriginClor = HitBgImg.color;
+        Image HitBgImg = HitBg.GetComponent<Image>();
+        OriginClor = HitBgImg.color;
         //CountText.GetComponent<Text>().text = "0";
 
         //patical.GetComponent<ParticleSystem>().Stop();
         //patical.GetComponent<ParticleSystem>().playbackSpeed = 1.30f;
 
-        Reset();
+        //Reset();
 
         //GameObject _game = new GameObject();
         //_game.AddComponent<RectTransform>();
@@ -59,19 +150,29 @@ public class Circle : MonoBehaviour {
         //_game.GetComponent<MeshRenderer>().material.color = Color.green;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void FixedUpdate()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (HitBg && HitObj)
         {
+            if (!mGameStatus)
+                return;
+
             ////z += Time.deltaTime * 50;
             ////HitObj.transform.rotation = Quaternion.Euler(0, 0, z);
-            HitObj.transform.localRotation *= Quaternion.AngleAxis(speed, new Vector3(0.0f, 0.0f, 1.0f));
+            //HitObj.transform.localRotation *= Quaternion.AngleAxis(speed, new Vector3(0.0f, 0.0f, 1.0f));
 
+            HitObj.transform.localRotation *= Quaternion.AngleAxis(speed, new Vector3(0.0f, 0.0f, 1.0f));
             float oZ = (PreRot.z);
             float fZ = (HitObj.transform.localEulerAngles.z);
             if (Mathf.Abs(fZ - oZ) < 0.1f)
             {
+                Debug.Log("1111");
                 GameOver();
             }
 
@@ -103,7 +204,7 @@ public class Circle : MonoBehaviour {
             if (isHit)
             {
                 HitBgImg.color = ChaingeColor;
-                if (true/*mTouch*/)
+                if (mTouch)
                 {
                     Opposition();
                 }
@@ -113,6 +214,7 @@ public class Circle : MonoBehaviour {
                 HitBgImg.color = OriginClor;
                 if (mTouch)
                 {
+                    Debug.Log("2222");
                     GameOver();
                 }
             }
@@ -142,7 +244,7 @@ public class Circle : MonoBehaviour {
         }
        if (mStageCurrentCount >= GameDataBase.StagetotalCount)
        {
-            mStageCurrentCount = 19;
+            mStageCurrentCount = GameDataBase.StagetotalCount-1;
        }
 
         // 충돌 바운드 설정
@@ -177,8 +279,6 @@ public class Circle : MonoBehaviour {
         }
         speed *= -1.0f;
 
-        Debug.Log("speed : " + speed);
-
         // 충돌하지 않고 한바퀴 돌았을때 게임종료를 위해서 이전 충돌 위치 저장
         PreRot = HitObj.transform.localEulerAngles;
 
@@ -194,17 +294,24 @@ public class Circle : MonoBehaviour {
         patical.GetComponent<ParticleSystem>().Stop();
         patical.GetComponent<ParticleSystem>().Play();
 
-        PlayerPrefs.SetInt("bestScore", (int)mHitCount);
-        PlayerPrefs.Save();
-        //if (PlayerPrefs.HasKey("bestScore"))
-        //{
-        //    // 해당 키가 있으면 mBestScore
-        //    PlayerPrefs.GetInt("bestScore", mBestScore);
-        //}
-        PlayerPrefs.GetInt("bestScore", mBestScore);
-        NewBestScoreText.GetComponent<Text>().text = "" + mBestScore;
+        // 점수 갱신 처리
+        if(mBestScore < (int)mHitCount)
+        {
+            mBestScore = (int)mHitCount;
+            PlayerPrefs.SetInt("bestScore", mBestScore);
+            //PlayerPrefs.Save();
+            mBestScore = PlayerPrefs.GetInt("bestScore");
+            NewBestScoreText.GetComponent<Text>().text = "" + mBestScore;
+            int dfs = Random.Range(0, goodtestNum);
+            CountText.GetComponent<Text>().text = goodtest[dfs];
+            NewBestScoreText.GetComponent<Animation>().Play();
+        }
+        CountText.GetComponent<Animation>().Play();
 
-        mTouch = false;
+        // 오디오 실행
+        this.GetComponent<AudioSource>().Play();
+
+        //mTouch = false;
     }
 
     // 0 ~ 360 -값은 들어가면 중돌 계산이 안된다
@@ -213,29 +320,40 @@ public class Circle : MonoBehaviour {
         if (HitBg && HitObj)
         {
             mBestScore = 0;
-            if (PlayerPrefs.HasKey("bestScore"))
+            if (!PlayerPrefs.HasKey("bestScore"))
             {
-                // 해당 키가 있으면 mBestScore
-                PlayerPrefs.GetInt("bestScore", mBestScore);
+                // 해당 키가 없으면 mBestScore
+                PlayerPrefs.SetInt("bestScore", mBestScore);
+                PlayerPrefs.Save();
             }
             else
             {
-                PlayerPrefs.SetInt("bestScore",0);
-                PlayerPrefs.Save();
+                if (mBestScore > 0)
+                {
+                    PlayerPrefs.SetInt("bestScore", mBestScore);
+                    PlayerPrefs.Save();
+                }
             }
+            mBestScore = PlayerPrefs.GetInt("bestScore");
 
             NewBestScoreText.GetComponent<Text>().text = "" + mBestScore;
 
             Image HitBgImg = HitBg.GetComponent<Image>();
-            OriginClor = HitBgImg.color;
+            //OriginClor = HitBgImg.color;
             CountText.GetComponent<Text>().text = "0";
 
             patical.GetComponent<ParticleSystem>().Stop();
 
-            float PlayerR = 0.0f;
-            float BackGroundR = Random.Range(90.0f, 270.0f);
+            //float PlayerR = 0.0f;
+            
 
-            HitObj.transform.localRotation *= Quaternion.AngleAxis(PlayerR, new Vector3(0.0f, 0.0f, 1.0f));
+            //HitObj.transform.localRotation *= Quaternion.AngleAxis(PlayerR, new Vector3(0.0f, 0.0f, 1.0f));
+            //HitBg.transform.localRotation *= Quaternion.AngleAxis(BackGroundR, new Vector3(0.0f, 0.0f, 1.0f));
+            HitBg.transform.localRotation = HitObj.transform.localRotation;
+
+            float BackGroundR = 180.0f + ((HitBgImg.fillAmount * 360) * 0.5f);
+            //float BackGroundR = 180.0f;// Random.Range(90.0f, 270.0f);
+
             HitBg.transform.localRotation *= Quaternion.AngleAxis(BackGroundR, new Vector3(0.0f, 0.0f, 1.0f));
 
             PreRot = HitObj.transform.localEulerAngles;
@@ -254,8 +372,8 @@ public class Circle : MonoBehaviour {
             {
                 _Speed = Mathf.Abs(6.0f - speed);
             }
+            speed = 2.0f;
             speed += _Speed;
-            speed *= -1.0f;
 
             mTouch = false;
         }
@@ -272,5 +390,20 @@ public class Circle : MonoBehaviour {
         Debug.Log("GameOver");
         HitObj.transform.localRotation *= Quaternion.AngleAxis(speed, new Vector3(0.0f, 0.0f, 1.0f));
         speed = 0.0f;
+
+        // 점수 갱신 처리
+        if (mBestScore < (int)mHitCount)
+        {
+            mBestScore = (int)mHitCount;
+            PlayerPrefs.SetInt("bestScore", mBestScore);
+            PlayerPrefs.Save();
+            PlayerPrefs.GetInt("bestScore", mBestScore);
+            NewBestScoreText.GetComponent<Text>().text = "" + mBestScore;
+        }
+        // 배경 흔들기
+        mCanvas.GetComponent<ShakeCamera>().shake = 0.9f;
+        SetGameStatus(false);
+
+        this.GetComponent<GoogleMobileAdsDemoScript>().RequestInterstitial();
     }
 }

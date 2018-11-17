@@ -167,3 +167,15 @@ C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.csproj.CoreCo
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.dll
 C:\Users\jjh\Desktop\Project\ABCD\Assets\obj\Debug\Assembly-CSharp.pdb
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.Animation.Editor.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.Animation.Runtime.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.Common.Editor.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.Common.Runtime.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.IK.Editor.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.IK.Runtime.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.2D.Triangle.Runtime.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.InternalAPIEditorBridge.001.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\Unity.InternalAPIEngineBridge.001.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\UnityEngine.Purchasing.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\Users\jjh\Desktop\Project\ABCD\Assets\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml

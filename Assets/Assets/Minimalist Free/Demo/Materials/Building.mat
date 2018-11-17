@@ -4,10 +4,10 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Building
-  m_Shader: {fileID: 4800000, guid: 534b44f15d8e80847a1e825dedc7c581, type: 3}
+  m_Shader: {fileID: 4800000, guid: a9e20a094f34d4d4a99a8fd7ff1db0ae, type: 3}
   m_ShaderKeywords: BACKSOLID BOTTOMSOLID FRONTSOLID LEFTSOLID RIGHTSOLID TOPSOLID
     _AOUV_UV0 _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_USE_GLOBAL
@@ -139,11 +139,18 @@ Material:
     - _ShowRight: 1
     - _ShowTexture: 0
     - _ShowTop: 1
+    - _Size: 5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _UVSec: 0
     - _UnityFogEnable: 0
+    - _Vibrancy: 0.2
     - _ZWrite: 1
     m_Colors:
     - _AOColor: {r: 1, g: 1, b: 1, a: 1}
@@ -161,6 +168,7 @@ Material:
     - _Color2_L: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_R: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_T: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorMask: {r: 1, g: 1, b: 1, a: 0.2}
     - _Color_Fog: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GizmoPosition_B: {r: 0, g: 0, b: 10, a: 10}
